@@ -5,7 +5,7 @@
   <div class="card w-100">
     <div class="card-header">メモ編集</div>
     <div class="card-body">
-      <form action="/store" method="POST">
+      <form action="{{ route('update', ['id'=>$memo['id']]) }}" method="POST">
         @csrf
         <input type="hidden" name="user_id" value="{{ $user['id'] }}">
         <div class="form-group">
