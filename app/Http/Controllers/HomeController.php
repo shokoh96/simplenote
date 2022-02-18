@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Memo;
+use App\Tag;
 
 class HomeController extends Controller
 {
@@ -43,12 +44,19 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        dd($data);
+        // dd($data);
         // POSTされたデータをDB(memosテーブル)に挿入
         // MEMOモデルにDBへ保存する命令を出す
+
+        // 先にタグをインサート
+        $tag_id = Tag::insertGetId(['name' => $data['tag'], 'user_id' => $data['user_id']]);
+        // dd($tag_id);
+        // タグIDが判明する
+        // タグIDをmemosテーブルに入れてあげる
         $memo_id = Memo::insertGetId([
             'content' => $data['content'],
             'user_id' => $data['user_id'],
+            'tag_id' => $tag_id,
             'status' => 1,
         ]);
 
