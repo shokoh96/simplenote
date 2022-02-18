@@ -103,7 +103,7 @@
                   class="fas fa-plus-circle"></i></a></div>
             <div class="card-body p-2">
               @foreach ($memos AS $memo)
-              <p>{{ $memo['content'] }}</p>
+              <a href="/edit/{{ $memo['id'] }}">{{ $memo['content'] }}</a>
               @endforeach
             </div>
           </div>
