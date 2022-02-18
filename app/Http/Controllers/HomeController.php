@@ -36,12 +36,14 @@ class HomeController extends Controller
     {
         // ログインしているユーザー情報をViewに渡す
         $user = \Auth::user();
-        return view('create', compact('user'));
+        $memos = Memo::where('user_id', $user['id'])->where('status', 1)->orderBy('updated_at', 'DESC')->get();
+        return view('create', compact('user', 'memos'));
     }
 
     public function store(Request $request)
     {
         $data = $request->all();
+        dd($data);
         // POSTされたデータをDB(memosテーブル)に挿入
         // MEMOモデルにDBへ保存する命令を出す
         $memo_id = Memo::insertGetId([
