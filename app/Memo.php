@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Memo extends Model
 {
+    //
     public function myMemo($user_id)
     {
         $tag = \Request::query('tag');
@@ -13,12 +14,14 @@ class Memo extends Model
         if (empty($tag)) {
             return $this::select('memos.*')->where('user_id', $user_id)->where('status', 1)->get();
         } else {
-            // もしタグの指定があればタグで絞る → where(tagがクエリパラメーターで取得したものに一致)
+            // もしタグの指定があればタグで絞る ->wher(tagがクエリパラメーターで取得したものに一致)
             $memos = $this::select('memos.*')
-                ->leftJoin('memo_tags', 'memo_id', '=', 'memos.id')
-                ->leftJoin('tags', 'tags.id', '=', 'memo_tags.tag_id')
-                ->where('tags.name', $tag)->where('tags.user_id', $user_id)
-                ->where('memos.user_id', $user_id)->where('status', 1)->get();
+                ->leftJoin('tags', 'tags.id', '=', 'memos.tag_id')
+                ->where('tags.name', $tag)
+                ->where('tags.user_id', $user_id)
+                ->where('memos.user_id', $user_id)
+                ->where('status', 1)
+                ->get();
             return $memos;
         }
     }
