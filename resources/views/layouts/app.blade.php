@@ -92,7 +92,9 @@
             <div class="card-header">タグ一覧</div>
             <div class="card-body py-2 px-4">
               <a class='d-block' href='/'>全て表示</a>
-
+              @foreach ($tags as $tag)
+              <a href="/?tag={{ $tag['name'] }}" class="d-block">{{ $tag['name']}}</a>
+              @endforeach
             </div>
           </div>
 
@@ -103,7 +105,7 @@
                   class="fas fa-plus-circle"></i></a></div>
             <div class="card-body p-2">
               @foreach ($memos AS $memo)
-              <a href="/edit/{{ $memo['id'] }}">{{ $memo['content'] }}</a>
+              <a href="/edit/{{ $memo['id'] }}" class="d-block">{{ $memo['content'] }}</a>
               @endforeach
             </div>
           </div>
